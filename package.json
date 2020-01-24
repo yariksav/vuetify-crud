@@ -1,0 +1,85 @@
+{
+  "name": "vuetify-crud",
+  "version": "0.0.1",
+  "description": "Vuetify CRUD module",
+  "scripts": {
+    "test": "NODE_ENV=test jest --env=jsdom",
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vuetify-crud.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vuetify-crud.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vuetify-crud.min.js",
+    "build:copy": "npm run build && npm run copy",
+    "prepublish": "npm run build",
+    "copy": "bash build/copy.sh"
+  },
+  "main": "dist/vuetify-crud.umd.js",
+  "module": "dist/vuetify-crud.esm.js",
+  "unpkg": "dist/vuetify-crud.min.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yariksav/vuetify-crud.git"
+  },
+  "keywords": [
+    "vuetify",
+    "crud"
+  ],
+  "author": "Yaroslav Savaryn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yariksav/vuetify-crud/issues"
+  },
+  "homepage": "https://github.com/yariksav/vuetify-crud#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/runtime": "^7.8.3",
+    "@vue/test-utils": "^1.0.0-beta.30",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-dynamic-import-node-babel-7": "^2.0.7",
+    "jest": "^24.9.0",
+    "jest-transform-stub": "^2.0.0",
+    "jsdom-global": "^3.0.2",
+    "lodash": "^4.17.15",
+    "minimist": "^1.2.0",
+    "node-sass": "^4.13.1",
+    "rollup": "^1.29.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-buble": "^0.19.8",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "rollup-plugin-vue": "^5.1.5",
+    "sass-loader": "^8.0.2",
+    "vue": "^2.6.11",
+    "vue-jest": "^3.0.5",
+    "vue-template-compiler": "^2.6.11",
+    "vuetify": "^2.2.4"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "^vue$": "vue/dist/vue.common.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx)?$": "<rootDir>/node_modules/babel-jest",
+      ".+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "transformIgnorePatterns": []
+  },
+  "peerDependencies": {
+    "vue": "*",
+    "vuetify": "*"
+  },
+  "dependencies": {}
+}

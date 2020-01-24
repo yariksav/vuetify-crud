@@ -1,0 +1,46 @@
+<template>
+  <v-menu offset-y left bottom>
+    <template v-slot:activator="{ on }">
+      <v-btn
+        icon
+        v-on="on"
+      >
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+    </template>
+    <v-list>
+      <template v-for="(action, key) in actions">
+        <v-list-item
+          v-if="!action.top && getParam(action.visible, item, true)"
+          :key="key"
+          @click="onActionClick(action)"
+        >
+          <v-icon v-if="action.icon" left>
+            {{ action.icon }}
+          </v-icon>
+          <v-list-item-title>
+            {{ action.text }}
+          </v-list-item-title>
+        </v-list-item>
+        <v-divider v-if="action.divider" :key="'divider-' + key" />
+      </template>
+    </v-list>
+  </v-menu>
+</template>
+
+<script>
+import actionsMixin from './actionsMixin'
+import { VMenu, VList, VListItem, VListItemTitle, VDivider, VIcon, VBtn } from 'vuetify/lib'
+export default {
+  components: {
+    VMenu,
+    VList,
+    VListItem,
+    VListItemTitle,
+    VDivider,
+    VIcon,
+    VBtn 
+  },
+  mixins: [actionsMixin]
+}
+</script>

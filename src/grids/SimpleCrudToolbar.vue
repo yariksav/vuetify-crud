@@ -1,9 +1,11 @@
 <template>
   <div>
     <v-toolbar flat>
-      <v-toolbar-title class="headline">
-        {{ title }}
-      </v-toolbar-title>
+      <slot name="title">
+        <v-toolbar-title class="headline">
+          {{ title }}
+        </v-toolbar-title>
+      </slot>
       <v-spacer />
       <v-text-field
         v-if="searchMode"

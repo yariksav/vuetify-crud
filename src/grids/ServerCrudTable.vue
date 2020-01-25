@@ -31,6 +31,7 @@
         >
           <ButtonActions slot="actions" :actions="actions" @changed="loadData" />
           <slot slot="filter" name="filter" />
+          <slot slot="title" name="title" />
         </SimpleCrudToolbar>
         <slot name="header-bottom" />
       </template>

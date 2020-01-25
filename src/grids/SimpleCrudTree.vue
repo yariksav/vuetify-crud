@@ -1,5 +1,5 @@
 <template>
-  <v-card v-bind="$attrs" class="SimpleGrudTree pb-4">
+  <v-card flat v-bind="$attrs">
     <SimpleCrudToolbar
       :title="title"
       :actions="actions"
@@ -14,27 +14,22 @@
         <ButtonActions :actions="actions" @changed="loadData" />
       </template>
       <slot slot="filter" name="filter" />
+      <slot slot="title" name="title" />
     </SimpleCrudToolbar>
     <v-card-text>
       <v-treeview
         :items="items"
         v-bind="$attrs"
         dense
-        item-key="id"
-        item-text="name"
         :active.sync="activeItems"
         activatable
         :search="searchValue"
         return-object
+        :load-children="onLoad"
       >
         <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
         <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
           <slot :name="slot" v-bind="scope" />
-        </template>
-        <template v-slot:append="{ item }">
-          <slot name="actions" :item="item">
-            <MenuActions :actions="actions" :item="item" @changed="loadData" />
-          </slot>
         </template>
       </v-treeview>
     </v-card-text>
@@ -44,13 +39,40 @@
 <script>
 import simpleCrudMixin from './simpleCrudMixin'
 
+import {
+  VTreeview,
+  VCard,
+  VCardText
+} from 'vuetify/lib'
+
 export default {
+  components: {
+    VTreeview,
+    VCard,
+    VCardText
+  },
   mixins: [
     simpleCrudMixin
   ],
+  props: {
+    selected: Object
+  },
   data () {
     return {
+      selectedItem: this.selected,
       activeItems: []
+    }
+  },
+  watch: {
+    activeItems (val) {
+      if (!val.length && this.selectedItem) {
+        this.activeItems.push(this.selectedItem)
+      } else {
+        this.selectedItem = val[0]
+      }
+    },
+    selectedItem () {
+      this.$emit('update:selected', this.selectedItem)
     }
   }
 }

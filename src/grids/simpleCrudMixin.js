@@ -1,13 +1,9 @@
-import IconActions from '../actions/IconActions.vue'
-import MenuActions from '../actions/MenuActions.vue'
-import ButtonActions from '../actions/ButtonActions.vue'
+import Actions from '../actions/Actions.vue'
 import SimpleCrudToolbar from './SimpleCrudToolbar.vue'
 
 export default {
   components: {
-    IconActions,
-    ButtonActions,
-    MenuActions,
+    Actions,
     SimpleCrudToolbar
   },
   props: {
@@ -44,7 +40,7 @@ export default {
         return this.headers
       }
       const actionsCount = Object.keys(this.actions).filter(
-        item => !this.actions[item].top
+        item => !this.actions[item].in
       ).length
       return [
         ...this.headers,
@@ -52,6 +48,7 @@ export default {
           text: '',
           value: 'actions',
           sortable: false,
+          align: 'right',
           width: actionsCount * 58
         }
       ]

@@ -34,9 +34,7 @@
     </v-toolbar>
     <div>
       <v-expand-transition>
-        <slot v-if="filterMode || filterPersistent" name="filter">
-          OK
-        </slot>
+        <slot v-if="filterMode || filterPersistent" name="filter" />
       </v-expand-transition>
     </div>
   </div>

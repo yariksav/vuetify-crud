@@ -1,6 +1,6 @@
 // Import vue components
-import * as components from './grids/index';
-
+import * as components from './grids/index'
+export { default as Actions } from './actions/Actions.vue'
 // install function executed by Vue.use()
 function install(Vue) {
   if (install.installed) return;
@@ -8,6 +8,7 @@ function install(Vue) {
   Object.keys(components).forEach((componentName) => {
     Vue.component(componentName, components[componentName]);
   });
+  Vue.component('SimpleActions', Actions)
 }
 
 // Create module definition for Vue.use()

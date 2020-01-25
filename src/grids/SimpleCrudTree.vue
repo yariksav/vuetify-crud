@@ -11,7 +11,12 @@
     >
       <template slot="actions">
         <slot name="toolbar" />
-        <ButtonActions :actions="actions" @changed="loadData" />
+        <Actions
+          slot="actions"
+          name="toolbar"
+          :actions="actions"
+          @changed="loadData"
+        />
       </template>
       <slot slot="filter" name="filter" />
       <slot slot="title" name="title" />
@@ -30,6 +35,15 @@
         <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
         <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
           <slot :name="slot" v-bind="scope" />
+        </template>
+        <template v-slot:prepend="{ item }">
+          <Actions
+            slot="prepend"
+            icon
+            :actions="actions"
+            :item="item"
+            @changed="loadData"
+          />
         </template>
       </v-treeview>
     </v-card-text>

@@ -29,7 +29,12 @@
           :search.sync="searchValue"
           @refresh="loadData"
         >
-          <ButtonActions slot="actions" :actions="actions" @changed="loadData" />
+          <Actions
+            slot="actions"
+            name="toolbar"
+            :actions="actions"
+            @changed="loadData"
+          />
           <slot slot="filter" name="filter" />
           <slot slot="title" name="title" />
         </SimpleCrudToolbar>
@@ -43,7 +48,13 @@
       <template v-if="actions" v-slot:item.actions="{ item }">
         <slot name="actions" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
-            <component :is="actionsComponent" slot="actions" :actions="actions" :item="item" @changed="loadData" />
+            <Actions
+              slot="actions"
+              icon
+              :actions="actions"
+              :item="item"
+              @changed="loadData"
+            />
           </div>
         </slot>
       </template>

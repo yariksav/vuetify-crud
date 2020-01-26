@@ -1,24 +1,13 @@
 <template>
-  <div class="SimpleCrudTable">
-    <v-data-table
+  <div class="SimpleCrudIterator">
+    <v-data-iterator
       :headers="getHeaders"
       :items="items"
-      :server-items-length="total"
-      :sort-by.sync="sortBy"
-      :sort-desc.sync="sortDesc"
-      :items-per-page.sync="limit"
-      :mobile-breakpoint="0"
       :loading="loading"
       :search="searchValue"
-      :page.sync="page"
-      :footer-props.sync="footerOptions"
-      :disable-sort="!sortable"
-      disable-pagination
-      disable-filtering
-      v-bind="$attrs"
-      v-on="$listeners"
+      v-bind="options"
     >
-      <template v-slot:top>
+      <template v-slot:header>
         <SimpleCrudToolbar
           :title="title"
           :actions="actions"
@@ -28,6 +17,7 @@
           :search.sync="searchValue"
           @refresh="loadData"
         >
+          <slot name="top" />
           <Actions
             slot="actions"
             name="toolbar"
@@ -39,12 +29,14 @@
         </SimpleCrudToolbar>
         <slot name="header-bottom" />
       </template>
+
       <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
       <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
         <slot :name="slot" v-bind="scope" />
       </template>
 
-      <template v-if="actions" v-slot:item.actions="{ item }">
+      <template v-slot:default="{ item }">
+        <slot name="default" :item="item" />
         <slot name="actions" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
             <Actions
@@ -57,27 +49,26 @@
           </div>
         </slot>
       </template>
-    </v-data-table>
+    </v-data-iterator>
   </div>
 </template>
 
 <script>
-import { debounce } from 'lodash'
-import { VDataTable } from 'vuetify/lib'
-import serverCrudMixin from './serverCrudMixin'
+import simpleCrudMixin from './simpleCrudMixin'
+import { VDataIterator } from 'vuetify/lib'
 
 export default {
   components: {
-    VDataTable
+    VDataIterator
   },
   mixins: [
-    serverCrudMixin
+    simpleCrudMixin
   ]
 }
 </script>
 
 <style lang="scss">
-  .SimpleCrudTable {
+  .SimpleCrudIterator {
     .v-data-table {
       table {
         table-layout: fixed;

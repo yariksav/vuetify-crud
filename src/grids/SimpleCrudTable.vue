@@ -4,11 +4,9 @@
       :headers="getHeaders"
       :items="items"
       :mobile-breakpoint="0"
-      class="elevation-1"
       :loading="loading"
       :search="searchValue"
-      locale="ru-RU"
-      v-bind="options"
+      v-bind="$attrs"
     >
       <template v-slot:top>
         <SimpleCrudToolbar

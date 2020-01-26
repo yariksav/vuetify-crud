@@ -7,6 +7,7 @@
       :searchable="searchable"
       :refreshable="refreshable"
       :search.sync="searchValue"
+      v-bind="$attrs"
       @refresh="loadData"
     >
       <template slot="actions">

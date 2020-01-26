@@ -25,6 +25,8 @@
           v-else
           :key="key"
           :actions="action.children"
+          :icon="action.icon"
+          :text="action.text"
           :item="item"
         />
       </template>

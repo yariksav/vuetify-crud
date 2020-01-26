@@ -17,7 +17,6 @@ export default {
       type: Array
     },
     onLoad: Function,
-    options: Object,
     searchable: Boolean,
     refreshable: Boolean,
     sortable: Boolean,

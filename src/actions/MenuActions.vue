@@ -4,8 +4,9 @@
       <v-btn
         icon
         v-on="on"
+        :title="text"
       >
-        <v-icon>more_vert</v-icon>
+        <v-icon>{{ icon || 'more_vert' }}</v-icon>
       </v-btn>
     </template>
     <v-list>
@@ -41,6 +42,10 @@ export default {
     VIcon,
     VBtn 
   },
-  mixins: [actionsMixin]
+  mixins: [actionsMixin],
+  props: {
+    icon: String,
+    text: String
+  }
 }
 </script>

@@ -1,24 +1,21 @@
 <template>
   <div class="SimpleCrudTable">
-    <v-data-table
-      :headers="getHeaders"
+    <v-data-iterator
       :items="items"
       :server-items-length="total"
+      :items-per-page.sync="limit"
+      :footer-props.sync="footerOptions"
+      :loading="loading"
+      :page.sync="page"
+      :disable-sort="!sortable"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
-      :items-per-page.sync="limit"
-      :mobile-breakpoint="0"
-      :loading="loading"
-      :search="searchValue"
-      :page.sync="page"
-      :footer-props.sync="footerOptions"
-      :disable-sort="!sortable"
       disable-pagination
       disable-filtering
       v-bind="$attrs"
       v-on="$listeners"
     >
-      <template v-slot:top>
+      <template v-slot:header>
         <SimpleCrudToolbar
           :title="title"
           :actions="actions"
@@ -39,12 +36,14 @@
         </SimpleCrudToolbar>
         <slot name="header-bottom" />
       </template>
+
       <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
       <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
         <slot :name="slot" v-bind="scope" />
       </template>
 
-      <template v-if="actions" v-slot:item.actions="{ item }">
+      <template v-slot:item="{ item }">
+        <slot name="item" :item="item" />
         <slot name="actions" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
             <Actions
@@ -57,43 +56,20 @@
           </div>
         </slot>
       </template>
-    </v-data-table>
+    </v-data-iterator>
   </div>
 </template>
 
 <script>
-import { debounce } from 'lodash'
-import { VDataTable } from 'vuetify/lib'
+import { VDataIterator } from 'vuetify/lib'
 import serverCrudMixin from './serverCrudMixin'
 
 export default {
   components: {
-    VDataTable
+    VDataIterator
   },
   mixins: [
     serverCrudMixin
   ]
 }
 </script>
-
-<style lang="scss">
-  .SimpleCrudTable {
-    .v-data-table {
-      table {
-        table-layout: fixed;
-        width: 100%;
-        td.disabled {
-          opacity: 0.5
-        }
-        .actions.only-on-hover {
-          opacity: 0.1;
-        }
-        tr:hover {
-          .actions.only-on-hover  {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
-</style>

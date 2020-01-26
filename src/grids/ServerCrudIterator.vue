@@ -1,5 +1,5 @@
 <template>
-  <div class="SimpleCrudTable">
+  <v-card class="ServerCrudIterator">
     <v-data-iterator
       :items="items"
       :server-items-length="total"
@@ -57,16 +57,17 @@
         </slot>
       </template>
     </v-data-iterator>
-  </div>
+  </v-card>
 </template>
 
 <script>
-import { VDataIterator } from 'vuetify/lib'
+import { VDataIterator, VCard } from 'vuetify/lib'
 import serverCrudMixin from './serverCrudMixin'
 
 export default {
   components: {
-    VDataIterator
+    VDataIterator,
+    VCard
   },
   mixins: [
     serverCrudMixin

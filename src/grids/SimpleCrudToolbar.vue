@@ -34,7 +34,9 @@
     </v-toolbar>
     <div>
       <v-expand-transition>
-        <slot v-if="filterMode || filterPersistent" name="filter" />
+        <div v-if="filterMode || filterPersistent">
+          <slot name="filter" />
+        </div>
       </v-expand-transition>
     </div>
   </div>
@@ -47,6 +49,7 @@ import {
   VToolbarTitle,
   VTextField,
   VSpacer,
+  VCard,
   VBtn,
   VExpandTransition,
   VIcon
@@ -58,6 +61,7 @@ export default {
     VToolbarTitle,
     VTextField,
     VSpacer,
+    VCard,
     VBtn,
     VExpandTransition,
     VIcon

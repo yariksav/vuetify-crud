@@ -1,5 +1,5 @@
 <template>
-  <div class="SimpleCrudIterator">
+  <v-card flat class="SimpleCrudIterator">
     <v-data-iterator
       :headers="getHeaders"
       :items="items"
@@ -50,16 +50,17 @@
         </slot>
       </template>
     </v-data-iterator>
-  </div>
+  </v-card>
 </template>
 
 <script>
 import simpleCrudMixin from './simpleCrudMixin'
-import { VDataIterator } from 'vuetify/lib'
+import { VDataIterator, VCard } from 'vuetify/lib'
 
 export default {
   components: {
-    VDataIterator
+    VDataIterator,
+    VCard
   },
   mixins: [
     simpleCrudMixin

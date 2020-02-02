@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import { debounce } from 'lodash'
 import { VDataTable } from 'vuetify/lib'
 import serverCrudMixin from './serverCrudMixin'
 

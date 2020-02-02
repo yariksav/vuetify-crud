@@ -12,7 +12,7 @@
           :icon="isIcon"
           :text="!isIcon"
           :title="action.text"
-          @click="onActionClick(action, item)"
+          @click.prevent.stop="onActionClick(action, item)"
         >
           <v-icon v-if="action.icon" :left="!isIcon">
             {{ action.icon }}

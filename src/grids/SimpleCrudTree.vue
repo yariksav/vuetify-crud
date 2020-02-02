@@ -1,5 +1,9 @@
 <template>
-  <v-card flat v-bind="$attrs">
+  <v-card
+    flat
+    v-bind="$attrs"
+    class="SimpleCrudToolbar"
+  >
     <SimpleCrudToolbar
       :title="title"
       :actions="actions"
@@ -37,9 +41,9 @@
         <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
           <slot :name="slot" v-bind="scope" />
         </template>
-        <template v-slot:prepend="{ item }">
+        <template v-slot:append="{ item }">
           <Actions
-            slot="prepend"
+            slot="append"
             icon
             :actions="actions"
             :item="item"
@@ -92,3 +96,8 @@ export default {
   }
 }
 </script>
+<style>
+  .SimpleCrudToolbar .v-treeview-node__label {
+    cursor: pointer;
+  }
+</style>

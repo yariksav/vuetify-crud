@@ -9,12 +9,12 @@ export default {
         return
       }
       try {
-        const res = await action.handler(this.item)
-        if (res) {
-          this.$emit('changed', { item: this.item, action, res })
+        const response = await action.handler(this.item)
+        if (response) {
+          this.$emit('changed', { item: this.item, action, response })
         }
       } catch (e) {
-        this.$dialog.notify.error(e.message)
+        console.error('vuetify-crud:', e) // TODO: make global error handler
       }
     },
     getParam (param, item, def) {

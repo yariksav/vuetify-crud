@@ -2,11 +2,13 @@
   <v-menu offset-y left bottom>
     <template v-slot:activator="{ on }">
       <v-btn
-        icon
+        :text="!!text"
+        :icon="!text"
         v-on="on"
         :title="text"
       >
-        <v-icon>{{ icon || 'more_vert' }}</v-icon>
+        <v-icon v-if="!text">{{ icon || 'more_vert' }}</v-icon>
+        {{ text }}
       </v-btn>
     </template>
     <v-list>

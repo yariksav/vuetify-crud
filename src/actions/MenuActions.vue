@@ -16,7 +16,7 @@
         <v-list-item
           v-if="!action.top && getParam(action.visible, item, true)"
           :key="key"
-          @click="onActionClick(action)"
+          @click.prevent.stop="onActionClick(action)"
         >
           <v-icon v-if="action.icon" left>
             {{ action.icon }}

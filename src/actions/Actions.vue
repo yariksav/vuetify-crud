@@ -28,6 +28,7 @@
           :icon="action.icon"
           :text="action.text"
           :item="item"
+          v-on="$listeners"
         />
       </template>
     </template>

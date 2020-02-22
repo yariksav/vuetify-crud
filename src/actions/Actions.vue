@@ -27,6 +27,7 @@
           :actions="action.children"
           :icon="action.icon"
           :text="action.text"
+          :handler="handler"
           :item="item"
           v-on="$listeners"
         />

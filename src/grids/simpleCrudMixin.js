@@ -21,6 +21,7 @@ export default {
     refreshable: Boolean,
     sortable: Boolean,
     headers: Array,
+    actionClick: Function,
     isDisabled: Function,
     filterPersistent: Boolean
   },

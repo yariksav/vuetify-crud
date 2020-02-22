@@ -23,6 +23,7 @@
             slot="actions"
             name="toolbar"
             :actions="actions"
+            :handler="actionClick"
             @changed="loadData"
           />
           <slot slot="filter" name="filter" />
@@ -42,6 +43,7 @@
               slot="actions"
               icon
               :actions="actions"
+              :handler="actionClick"
               :item="item"
               @changed="loadData"
             />

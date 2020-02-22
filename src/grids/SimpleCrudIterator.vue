@@ -1,7 +1,6 @@
 <template>
   <v-card flat class="SimpleCrudIterator">
     <v-data-iterator
-      :headers="getHeaders"
       :items="items"
       :loading="loading"
       :search="searchValue"
@@ -35,8 +34,8 @@
         <slot :name="slot" v-bind="scope" />
       </template>
 
-      <template v-slot:default="{ item }">
-        <slot name="default" :item="item" />
+      <template v-slot:item="{ item }">
+        <slot name="item" :item="item" />
         <slot name="actions" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
             <Actions

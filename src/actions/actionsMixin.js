@@ -1,15 +1,17 @@
 export default {
   props: {
     actions: [Object, Array],
+    handler: Function,
     item: Object
   },
   methods: {
     async onActionClick (action) {
-      if (typeof action.handler !== 'function') {
+      const handler = action.handler || this.handler
+      if (typeof handler !== 'function') {
         return
       }
       try {
-        const response = await action.handler(this.item)
+        const response = await handler(this.item, action)
         if (response) {
           this.$emit('changed', { item: this.item, action, response })
         }

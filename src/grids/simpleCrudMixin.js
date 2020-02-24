@@ -13,9 +13,7 @@ export default {
       default: 'IconActions'
     },
     title: String,
-    items: {
-      type: Array
-    },
+    items: Array,
     onLoad: Function,
     searchable: Boolean,
     refreshable: Boolean,
@@ -32,7 +30,9 @@ export default {
     }
   },
   created () {
-    this.loadData()
+    if (!this.items || !this.items.length) {
+      this.loadData()
+    }
   },
   computed: {
     getHeaders () {

@@ -2,20 +2,20 @@
   <v-card class="ServerCrudIterator">
     <v-data-iterator
       :items="items"
-      :server-items-length="total"
-      :items-per-page.sync="limit"
-      :footer-props.sync="footerOptions"
       :loading="loading"
-      :page.sync="page"
-      :disable-sort="!sortable"
+      :server-items-length="total"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
+      :items-per-page.sync="limit"
+      :page.sync="page"
+      :footer-props.sync="footerOptions"
+      :disable-sort="!sortable"
       disable-pagination
       disable-filtering
       v-bind="$attrs"
       v-on="$listeners"
     >
-      <template v-slot:header>
+      <template v-slot:top>
         <SimpleCrudToolbar
           :title="title"
           :actions="actions"
@@ -25,10 +25,12 @@
           :search.sync="searchValue"
           @refresh="loadData"
         >
+          <slot name="top" />
           <Actions
             slot="actions"
             name="toolbar"
             :actions="actions"
+            :handler="actionClick"
             @changed="loadData"
           />
           <slot slot="filter" name="filter" />
@@ -36,7 +38,6 @@
         </SimpleCrudToolbar>
         <slot name="header-bottom" />
       </template>
-
       <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
       <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
         <slot :name="slot" v-bind="scope" />
@@ -44,12 +45,13 @@
 
       <template v-slot:item="{ item }">
         <slot name="item" :item="item" />
-        <slot name="actions" :item="item">
+        <slot v-if="actions" name="actions" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
             <Actions
               slot="actions"
               icon
               :actions="actions"
+              :handler="actionClick"
               :item="item"
               @changed="loadData"
             />

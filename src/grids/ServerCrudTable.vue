@@ -3,13 +3,13 @@
     <v-data-table
       :headers="getHeaders"
       :items="items"
+      :mobile-breakpoint="0"
+      :loading="loading"
+      :search="searchValue"
       :server-items-length="total"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :items-per-page.sync="limit"
-      :mobile-breakpoint="0"
-      :loading="loading"
-      :search="searchValue"
       :page.sync="page"
       :footer-props.sync="footerOptions"
       :disable-sort="!sortable"
@@ -28,10 +28,12 @@
           :search.sync="searchValue"
           @refresh="loadData"
         >
+          <slot name="top" />
           <Actions
             slot="actions"
             name="toolbar"
             :actions="actions"
+            :handler="actionClick"
             @changed="loadData"
           />
           <slot slot="filter" name="filter" />
@@ -51,6 +53,7 @@
               slot="actions"
               icon
               :actions="actions"
+              :handler="actionClick"
               :item="item"
               @changed="loadData"
             />

@@ -2,6 +2,7 @@ import Actions from '../actions/Actions.vue'
 import SimpleCrudToolbar from './SimpleCrudToolbar.vue'
 
 export default {
+  inheritAttrs: false,
   components: {
     Actions,
     SimpleCrudToolbar

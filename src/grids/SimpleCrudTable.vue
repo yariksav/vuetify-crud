@@ -18,7 +18,6 @@
           :search.sync="searchValue"
           @refresh="loadData"
         >
-          <slot name="top" />
           <Actions
             slot="actions"
             name="toolbar"
@@ -59,6 +58,7 @@ import simpleCrudMixin from './simpleCrudMixin'
 import { VDataTable } from 'vuetify/lib'
 
 export default {
+  inheritAttrs: false,
   components: {
     VDataTable
   },

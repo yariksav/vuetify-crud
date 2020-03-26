@@ -1,6 +1,6 @@
 {
   "name": "vuetify-crud",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Vuetify CRUD module",
   "scripts": {
     "test": "NODE_ENV=test jest --env=jsdom",
@@ -44,7 +44,7 @@
     "jest-transform-stub": "^2.0.0",
     "jsdom-global": "^3.0.2",
     "lodash": "^4.17.15",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "node-sass": "^4.13.1",
     "rollup": "^1.29.0",
     "rollup-plugin-babel": "^4.3.3",

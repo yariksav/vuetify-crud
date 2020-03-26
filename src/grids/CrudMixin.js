@@ -126,7 +126,11 @@ export default {
         await this.onLoad(this.loadParams)
       } catch (e) {
         console.error(e)
-        this.onError && onError(e.message)
+        if (this.onError) {
+          this.onError(e.message)
+        } else if (this.$dialog) {
+          this.$dialog.notify.error(e.message)
+        }
       }
       this.loading = false
     },

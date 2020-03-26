@@ -1,12 +1,20 @@
 <template>
-  <v-card flat class="SimpleCrudIterator">
-    <v-data-iterator
+  <div class="CrudGrid pb-2">
+    <component
+      ref="grid"
+      :is="componentVuetify"
       :items="items"
       :loading="loading"
-      :search="searchValue"
-      v-bind="options"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
+      :items-per-page.sync="limit"
+      :page.sync="page"
+      :disable-sort="!sortable"
+      hide-default-footer
+      v-bind="bindFields"
+      v-on="$listeners"
     >
-      <template v-slot:header>
+      <template v-slot:top>
         <SimpleCrudToolbar
           :title="title"
           :actions="actions"
@@ -34,41 +42,77 @@
         <slot :name="slot" v-bind="scope" />
       </template>
 
-      <template v-slot:item="{ item }">
-        <slot name="item" :item="item" />
+      <template v-if="actions" v-slot:item.actions="{ item }">
         <slot name="actions" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
             <Actions
               slot="actions"
               icon
               :actions="actions"
+              :handler="actionClick"
               :item="item"
               @changed="loadData"
             />
           </div>
         </slot>
       </template>
-    </v-data-iterator>
-  </v-card>
+    </component>
+    <div v-if="pageCount > 1" class="d-flex">
+      <v-pagination
+        class="justify-center"
+        v-model="page"
+        :length="pageCount"
+        :total-visible="paginationTotalVisible"
+      />
+      <v-select
+        class="justify-end"
+        :style="{
+          'min-width': '60px',
+          'max-width': '60px'
+        }"
+        v-model="limit"
+        :items="computedDataItemsPerPageOptions"
+        hide-details
+        dense
+        auto
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import simpleCrudMixin from './simpleCrudMixin'
-import { VDataIterator, VCard } from 'vuetify/lib'
+import {
+  VPagination,
+  VDataTable,
+  VDataIterator,
+  VSelect
+} from 'vuetify/lib'
+import Actions from '../actions/Actions.vue'
+import SimpleCrudToolbar from './SimpleCrudToolbar.vue'
+import CrudMixin from './CrudMixin'
 
 export default {
-  components: {
-    VDataIterator,
-    VCard
-  },
   mixins: [
-    simpleCrudMixin
-  ]
+    CrudMixin
+  ],
+  components: {
+    Actions,
+    SimpleCrudToolbar,
+    VSelect,
+    VPagination
+  },
+  props: {
+    isIterator: Boolean
+  },
+  computed: {
+    componentVuetify () {
+      return this.isIterator ? VDataIterator : VDataTable
+    }
+  }
 }
 </script>
-
 <style lang="scss">
-  .SimpleCrudIterator {
+  .CrudGrid {
     .v-data-table {
       table {
         table-layout: fixed;

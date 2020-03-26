@@ -1,6 +1,7 @@
 <template>
   <v-card class="ServerCrudIterator">
     <v-data-iterator
+      ref="grid"
       :items="items"
       :loading="loading"
       :server-items-length="total"
@@ -11,6 +12,7 @@
       :footer-props.sync="footerOptions"
       :disable-sort="!sortable"
       disable-pagination
+      hide-default-footer
       disable-filtering
       v-bind="$attrs"
       v-on="$listeners"
@@ -59,6 +61,12 @@
         </slot>
       </template>
     </v-data-iterator>
+    <v-pagination
+      v-if="pageCount > 1"
+      v-model="page"
+      :length="pageCount"
+      :total-visible="7"
+    />
   </v-card>
 </template>
 

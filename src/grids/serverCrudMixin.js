@@ -1,7 +1,11 @@
 import { debounce } from 'lodash'
 import simpleCrudMixin from './simpleCrudMixin'
+import { VPagination } from 'vuetify/lib'
 
 export default {
+  components: {
+    VPagination
+  },
   mixins: [
     simpleCrudMixin
   ],
@@ -38,6 +42,11 @@ export default {
       }
     }
   },
+  computed: {
+    pageCount () {
+      return Math.ceil(this.total / 10)
+    }
+  },
   methods: {
     async loadData () {
       if (!this.onLoad) {
@@ -53,6 +62,9 @@ export default {
           sortDirection: (Array.isArray(this.sortDesc) ? this.sortDesc[0] : this.sortDesc) ? 'DESC' : 'ASC',
           ...this.filter
         })
+        if (this.$refs.grid) {
+          this.$vuetify.goTo(this.$refs.grid)
+        }
       } catch (e) {
         this.$dialog.notify.error(e.message)
       }

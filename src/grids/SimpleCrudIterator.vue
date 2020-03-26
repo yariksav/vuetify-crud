@@ -21,6 +21,7 @@
             slot="actions"
             name="toolbar"
             :actions="actions"
+            :handler="actionClick"
             @changed="loadData"
           />
           <slot slot="filter" name="filter" />

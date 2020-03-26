@@ -1,6 +1,7 @@
 <template>
   <div class="SimpleCrudTable">
     <v-data-table
+      ref="grid"
       :headers="getHeaders"
       :items="items"
       :mobile-breakpoint="0"
@@ -15,6 +16,7 @@
       :disable-sort="!sortable"
       disable-pagination
       disable-filtering
+      hide-default-footer
       v-bind="$attrs"
       v-on="$listeners"
     >
@@ -61,6 +63,12 @@
         </slot>
       </template>
     </v-data-table>
+    <v-pagination
+      v-if="pageCount > 1"
+      v-model="page"
+      :length="pageCount"
+      :total-visible="7"
+    />
   </div>
 </template>
 

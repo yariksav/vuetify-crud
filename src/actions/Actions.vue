@@ -9,9 +9,10 @@
           :set="isIcon = Boolean(action.type === 'icon' || icon)"
           :key="key"
           :disabled="getParam(action.disabled, item, false)"
-          :icon="isIcon"
+          :icon="isIcon && !action.fab"
           :text="!isIcon"
           :title="action.text"
+          v-bind="getActionProps(action)"
           @click.prevent.stop="onActionClick(action, item)"
         >
           <v-icon v-if="action.icon" :left="!isIcon">
@@ -53,6 +54,36 @@ export default {
     text: Boolean,
     name: String
   },
+  computed: {
+    nestedProps () {
+      return [
+        'active-class',
+        'block',
+        'color',
+        'flat',
+        'dark',
+        'depressed',
+        'elevation',
+        'exact',
+        'exact-active-class',
+        'height',
+        'fab',
+        'light',
+        'loading',
+        'max-height',
+        'max-width',
+        'min-height',
+        'min-width',
+        'outlined',
+        'rounded',
+        'tile',
+        'small',
+        'large',
+        'x-small',
+        'x-large'
+      ]
+    }
+  },
   methods: {
     isVisible (action) {
       // console.log(action.in, this.type, (this.type || action.in) && this.type !== action.in)
@@ -60,6 +91,15 @@ export default {
         return false
       }
       return this.getParam(action.visible, this.item, true)
+    },
+    getActionProps (action) {
+      const props = {}
+      this.nestedProps.forEach(key => {
+        if (action[key] || this[key]) {
+          props[key] = action[key] === undefined ? this[key] : action[key]
+        }
+      })
+      return props
     }
   }
 }

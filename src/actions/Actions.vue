@@ -29,6 +29,7 @@
           :icon="action.icon"
           :text="action.text"
           :handler="handler"
+          :on-error="onError"
           :item="item"
           v-on="$listeners"
         />

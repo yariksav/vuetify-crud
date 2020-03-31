@@ -1,6 +1,7 @@
 export default {
   props: {
     actions: [Object, Array],
+    onError: Function,
     handler: Function,
     item: Object
   },
@@ -16,7 +17,11 @@ export default {
           this.$emit('changed', { item: this.item, action, response })
         }
       } catch (e) {
-        console.error('vuetify-crud:', e) // TODO: make global error handler
+        if (this.onError) {
+          this.onError(e)
+        } else {
+          throw e
+        }
       }
     },
     getParam (param, item, def) {

@@ -30,6 +30,7 @@
             name="toolbar"
             :actions="actions"
             :handler="actionClick"
+            :on-error="onError"
             @changed="loadData"
           />
           <slot slot="filter" name="filter" />
@@ -49,6 +50,7 @@
               slot="actions"
               icon
               :actions="actions"
+              :on-error="onError"
               :handler="actionClick"
               :item="item"
               @changed="loadData"
@@ -64,7 +66,7 @@
         :length="pageCount"
         :total-visible="paginationTotalVisible"
       />
-      <v-select
+      <!-- <v-select TODO:
         class="justify-end"
         :style="{
           'min-width': '60px',
@@ -75,7 +77,7 @@
         hide-details
         dense
         auto
-      />
+      /> -->
     </div>
   </div>
 </template>

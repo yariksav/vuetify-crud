@@ -1,11 +1,11 @@
 import Actions from '../actions/Actions.vue'
-import SimpleCrudToolbar from './SimpleCrudToolbar.vue'
+import CrudToolbar from './CrudToolbar.vue'
 
 export default {
   inheritAttrs: false,
   components: {
     Actions,
-    SimpleCrudToolbar
+    CrudToolbar
   },
   props: {
     actions: [Object, Array],

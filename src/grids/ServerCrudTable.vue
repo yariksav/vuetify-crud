@@ -21,7 +21,7 @@
       v-on="$listeners"
     >
       <template v-slot:top>
-        <SimpleCrudToolbar
+        <CrudToolbar
           :title="title"
           :actions="actions"
           :filter-persistent="filterPersistent"
@@ -40,7 +40,7 @@
           />
           <slot slot="filter" name="filter" />
           <slot slot="title" name="title" />
-        </SimpleCrudToolbar>
+        </CrudToolbar>
         <slot name="header-bottom" />
       </template>
       <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />

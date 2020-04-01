@@ -2,9 +2,9 @@
   <v-card
     flat
     v-bind="$attrs"
-    class="SimpleCrudToolbar"
+    class="CrudToolbar"
   >
-    <SimpleCrudToolbar
+    <CrudToolbar
       :title="title"
       :actions="actions"
       :filter-persistent="filterPersistent"
@@ -25,7 +25,7 @@
       </template>
       <slot slot="filter" name="filter" />
       <slot slot="title" name="title" />
-    </SimpleCrudToolbar>
+    </CrudToolbar>
     <v-card-text>
       <v-treeview
         :items="items"
@@ -96,7 +96,7 @@ export default {
 }
 </script>
 <style>
-  .SimpleCrudToolbar .v-treeview-node__label {
+  .CrudToolbar .v-treeview-node__label {
     cursor: pointer;
   }
 </style>

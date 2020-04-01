@@ -32,13 +32,13 @@
         </v-btn>
       </template>
     </v-toolbar>
-    <div>
+    <v-sheet>
       <v-expand-transition>
         <div v-if="filterMode || filterPersistent">
           <slot name="filter" />
         </div>
       </v-expand-transition>
-    </div>
+    </v-sheet>
   </div>
 </template>
 

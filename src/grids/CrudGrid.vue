@@ -1,5 +1,28 @@
 <template>
   <div class="CrudGrid pb-2">
+    <CrudToolbar
+      :title="title"
+      :actions="actions"
+      :filter-persistent="filterPersistent"
+      :searchable="searchable"
+      :refreshable="refreshable"
+      :search.sync="searchValue"
+      @refresh="loadData"
+      slot="header"
+    >
+      <slot name="title" />
+      <Actions
+        slot="actions"
+        name="toolbar"
+        :actions="actions"
+        :handler="actionClick"
+        :on-error="onError"
+        @changed="loadData"
+      />
+      <slot slot="filter" name="filter" />
+      <!-- <slot slot="title" name="title" /> -->
+    </CrudToolbar>
+    <slot name="header-bottom" />
     <component
       ref="grid"
       :is="componentVuetify"
@@ -14,30 +37,6 @@
       v-bind="bindFields"
       v-on="$listeners"
     >
-      <template v-slot:top>
-        <SimpleCrudToolbar
-          :title="title"
-          :actions="actions"
-          :filter-persistent="filterPersistent"
-          :searchable="searchable"
-          :refreshable="refreshable"
-          :search.sync="searchValue"
-          @refresh="loadData"
-        >
-          <slot name="top" />
-          <Actions
-            slot="actions"
-            name="toolbar"
-            :actions="actions"
-            :handler="actionClick"
-            :on-error="onError"
-            @changed="loadData"
-          />
-          <slot slot="filter" name="filter" />
-          <slot slot="title" name="title" />
-        </SimpleCrudToolbar>
-        <slot name="header-bottom" />
-      </template>
       <slot v-for="slot in Object.keys($slots)" :slot="slot" :name="slot" />
       <template v-for="slot in Object.keys($scopedSlots)" :slot="slot" slot-scope="scope">
         <slot :name="slot" v-bind="scope" />
@@ -90,7 +89,7 @@ import {
   VSelect
 } from 'vuetify/lib'
 import Actions from '../actions/Actions.vue'
-import SimpleCrudToolbar from './SimpleCrudToolbar.vue'
+import CrudToolbar from './CrudToolbar.vue'
 import CrudMixin from './CrudMixin'
 
 export default {
@@ -99,7 +98,7 @@ export default {
   ],
   components: {
     Actions,
-    SimpleCrudToolbar,
+    CrudToolbar,
     VSelect,
     VPagination
   },

@@ -28,6 +28,7 @@
     </CrudToolbar>
     <v-card-text>
       <v-treeview
+        class="m-groups-preview "
         :items="items"
         v-bind="$attrs"
         dense
@@ -55,7 +56,7 @@
 </template>
 
 <script>
-import simpleCrudMixin from './simpleCrudMixin'
+import CrudMixin from './CrudMixin'
 
 import {
   VTreeview,
@@ -70,7 +71,7 @@ export default {
     VCardText
   },
   mixins: [
-    simpleCrudMixin
+    CrudMixin
   ],
   props: {
     selected: Object
@@ -95,7 +96,17 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
+  .m-groups-preview {
+    ::v-deep .v-treeview-node {
+      border-top: 1px solid var(--v-secondary-base);
+      &:nth-child(2n+1) {
+        .v-treeview-node__root:nth-child(2n+1) {
+          background-color: #F0F6FC;
+        }
+      }
+    }
+  }
   .CrudToolbar .v-treeview-node__label {
     cursor: pointer;
   }

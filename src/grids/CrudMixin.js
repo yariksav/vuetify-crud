@@ -32,13 +32,14 @@ export default {
     total: Number
   },
   data () {
+    const params = (this.$route && this.$route.query) || {}
     return {
-      page: 1,
-      limit: this.itemsPerPageOptions[0],
-      sortBy: null,
-      sortDesc: false,
+      page: +params.page || 1,
+      limit: +params.limit || this.itemsPerPageOptions[0],
+      sortBy: params.sortBy,
+      sortDesc: params.sortDesc || false,
       loading: false,
-      searchValue: null
+      searchValue: params.search || null
     }
   },
   created () {
@@ -108,9 +109,9 @@ export default {
         return {
           page: this.page,
           limit: this.limit,
-          search: this.searchValue,
-          sortBy: Array.isArray(this.sortBy) ? this.sortBy[0] : this.sortBy,
-          sortDirection: (Array.isArray(this.sortDesc) ? this.sortDesc[0] : this.sortDesc) ? 'DESC' : 'ASC',
+          search: this.searchValue || undefined,
+          sortBy: (Array.isArray(this.sortBy) ? this.sortBy[0] : this.sortBy) || undefined,
+          sortDirection: (Array.isArray(this.sortDesc) ? this.sortDesc[0] : this.sortDesc) ? 'DESC' : undefined,
           ...this.filter
         }
       }
@@ -120,6 +121,14 @@ export default {
     async loadData () {
       if (!this.onLoad) {
         return
+      }
+      if (this.isServer && this.$route) {
+        this.$router.replace({
+          query: {
+            ...this.$route.query,
+            ...this.loadParams
+          }
+        })
       }
       this.loading = true
       try {

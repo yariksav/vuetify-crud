@@ -87,7 +87,6 @@ export default {
   },
   methods: {
     isVisible (action) {
-      // console.log(action.in, this.type, (this.type || action.in) && this.type !== action.in)
       if ((this.name || action.in) && this.name !== action.in) {
         return false
       }

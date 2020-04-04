@@ -32,13 +32,13 @@
         </v-btn>
       </template>
     </v-toolbar>
-    <v-sheet>
-      <v-expand-transition>
-        <div v-if="filterMode || filterPersistent">
+    <v-expand-transition>
+      <div v-if="filterMode || filterPersistent">
+        <v-sheet>
           <slot name="filter" />
-        </div>
-      </v-expand-transition>
-    </v-sheet>
+        </v-sheet>
+      </div>
+    </v-expand-transition>
   </div>
 </template>
 
@@ -78,8 +78,8 @@ export default {
   },
   data () {
     return {
-      searchValue: null,
-      searchMode: false,
+      searchValue: this.search,
+      searchMode: Boolean(this.search),
       filterMode: false
     }
   },

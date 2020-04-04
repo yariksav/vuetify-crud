@@ -20,9 +20,10 @@
         @changed="loadData"
       />
       <slot slot="filter" name="filter" />
-      <!-- <slot slot="title" name="title" /> -->
     </CrudToolbar>
-    <slot name="header-bottom" />
+    <v-sheet>
+      <slot name="header-bottom" />
+    </v-sheet>
     <component
       ref="grid"
       :is="componentVuetify"
@@ -86,13 +87,15 @@ import {
   VPagination,
   VDataTable,
   VDataIterator,
-  VSelect
+  VSelect,
+  VSheet
 } from 'vuetify/lib'
 import Actions from '../actions/Actions.vue'
 import CrudToolbar from './CrudToolbar.vue'
 import CrudMixin from './CrudMixin'
 
 export default {
+  inheritAttrs: false,
   mixins: [
     CrudMixin
   ],
@@ -100,7 +103,8 @@ export default {
     Actions,
     CrudToolbar,
     VSelect,
-    VPagination
+    VPagination,
+    VSheet
   },
   props: {
     isIterator: Boolean

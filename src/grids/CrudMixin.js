@@ -1,7 +1,6 @@
 import { debounce } from 'lodash'
 
 export default {
-  inheritAttrs: false,
   props: {
     actions: [Object, Array],
     actionsComponent: {
@@ -128,7 +127,7 @@ export default {
             ...this.$route.query,
             ...this.loadParams
           }
-        })
+        }).catch(err => {})
       }
       this.loading = true
       try {

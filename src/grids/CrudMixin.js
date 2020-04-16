@@ -130,7 +130,6 @@ export default {
       if (query.limit == this.itemsPerPageOptions[0]) {
         delete query.limit
       }
-      console.log(query)
       this.$router.replace({
         query
       }).catch(err => {})

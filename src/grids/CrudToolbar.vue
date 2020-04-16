@@ -31,6 +31,14 @@
           <v-icon>filter_list</v-icon>
         </v-btn>
       </template>
+      <v-progress-linear
+        :active="loading"
+        indeterminate
+        absolute
+        bottom
+        :height="3"
+        color="primary accent-4"
+      ></v-progress-linear>
     </v-toolbar>
     <v-expand-transition>
       <div v-if="filterMode || filterPersistent">
@@ -52,6 +60,7 @@ import {
   VSheet,
   VCard,
   VBtn,
+  VProgressLinear,
   VExpandTransition,
   VIcon
 } from 'vuetify/lib'
@@ -65,6 +74,7 @@ export default {
     VSheet,
     VCard,
     VBtn,
+    VProgressLinear,
     VExpandTransition,
     VIcon
   },
@@ -73,6 +83,7 @@ export default {
     filterPersistent: Boolean,
     refreshable: Boolean,
     search: String,
+    loading: Boolean,
     searchable: Boolean,
     title: String
   },

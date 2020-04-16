@@ -1,4 +1,4 @@
-import { debounce } from 'lodash'
+import { debounce, pick } from 'lodash'
 
 export default {
   props: {
@@ -12,6 +12,7 @@ export default {
     filterPersistent: Boolean,
     headers: Array,
     isServer: Boolean,
+    isIterator: Boolean,
     items: Array,
     paginationTotalVisible: {
       type: Number,
@@ -27,11 +28,12 @@ export default {
     searchable: Boolean,
     sortable: Boolean,
     refreshable: Boolean,
+    useRouter: Boolean,
     title: String,
     total: Number
   },
   data () {
-    const params = (this.$route && this.$route.query) || {}
+    const params = (this.useRouter && this.$route && this.$route.query) || {}
     return {
       page: +params.page || 1,
       limit: +params.limit || this.itemsPerPageOptions[0],
@@ -117,17 +119,28 @@ export default {
     }
   },
   methods: {
+    changeRouterQuery () {
+      if (!this.$route) {
+        return
+      }
+      const query =  Object.assign({}, this.$route.query, this.loadParams)
+      if (query.page <= 1) {
+        delete query.page
+      }
+      if (query.limit == this.itemsPerPageOptions[0]) {
+        delete query.limit
+      }
+      console.log(query)
+      this.$router.replace({
+        query
+      }).catch(err => {})
+    },
     async loadData () {
       if (!this.onLoad) {
         return
       }
-      if (this.isServer && this.$route) {
-        this.$router.replace({
-          query: {
-            ...this.$route.query,
-            ...this.loadParams
-          }
-        }).catch(err => {})
+      if (this.isServer && this.useRouter) {
+        this.changeRouterQuery()
       }
       this.loading = true
       try {

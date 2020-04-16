@@ -24,11 +24,17 @@
     <v-sheet>
       <slot name="header-bottom" />
     </v-sheet>
+    <v-progress-linear
+      :active="loading"
+      indeterminate
+      absolute
+      :height="3"
+      color="primary accent-4"
+    ></v-progress-linear>
     <component
       ref="grid"
       :is="componentVuetify"
       :items="items"
-      :loading="loading"
       :sort-by.sync="sortBy"
       :sort-desc.sync="sortDesc"
       :items-per-page.sync="limit"
@@ -86,6 +92,7 @@
 import {
   VPagination,
   VDataTable,
+  VProgressLinear,
   VDataIterator,
   VSelect,
   VSheet
@@ -104,10 +111,8 @@ export default {
     CrudToolbar,
     VSelect,
     VPagination,
+    VProgressLinear,
     VSheet
-  },
-  props: {
-    isIterator: Boolean
   },
   computed: {
     componentVuetify () {

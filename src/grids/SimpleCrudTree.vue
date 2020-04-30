@@ -57,6 +57,8 @@
 
 <script>
 import CrudMixin from './CrudMixin'
+import Actions from '../actions/Actions.vue'
+import CrudToolbar from './CrudToolbar.vue'
 
 import {
   VTreeview,
@@ -68,7 +70,9 @@ export default {
   components: {
     VTreeview,
     VCard,
-    VCardText
+    VCardText,
+    Actions,
+    CrudToolbar
   },
   mixins: [
     CrudMixin

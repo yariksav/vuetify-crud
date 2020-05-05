@@ -1,8 +1,7 @@
 <template>
-  <v-card
-    flat
+  <v-sheet
     v-bind="$attrs"
-    class="CrudToolbar"
+    class="CrudTree"
   >
     <CrudToolbar
       :title="title"
@@ -26,7 +25,8 @@
       <slot slot="filter" name="filter" />
       <slot slot="title" name="title" />
     </CrudToolbar>
-    <v-card-text>
+    <div class="pb-4">
+    <!-- <v-card-text> -->
       <v-treeview
         class="m-groups-preview "
         :items="items"
@@ -51,8 +51,12 @@
           />
         </template>
       </v-treeview>
-    </v-card-text>
-  </v-card>
+      <div class="pa-4" v-if="!items || !items.length">
+        <slot name="no-data" />
+      </div>
+    </div>
+    <!-- </v-card-text> -->
+  </v-sheet>
 </template>
 
 <script>
@@ -62,15 +66,17 @@ import CrudToolbar from './CrudToolbar.vue'
 
 import {
   VTreeview,
-  VCard,
-  VCardText
+  VSheet
+  // VCard,
+  // VCardText
 } from 'vuetify/lib'
 
 export default {
   components: {
     VTreeview,
-    VCard,
-    VCardText,
+    // VCard,
+    // VCardText,
+    VSheet,
     Actions,
     CrudToolbar
   },
@@ -111,7 +117,7 @@ export default {
       }
     }
   }
-  .CrudToolbar .v-treeview-node__label {
+  .CrudTree .v-treeview-node__label {
     cursor: pointer;
   }
 </style>

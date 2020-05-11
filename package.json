@@ -1,6 +1,6 @@
 {
   "name": "vuetify-crud",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Vuetify CRUD module",
   "scripts": {
     "test": "NODE_ENV=test jest --env=jsdom",

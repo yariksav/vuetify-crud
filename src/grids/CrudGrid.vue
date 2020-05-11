@@ -10,7 +10,7 @@
       @refresh="loadData"
       slot="header"
     >
-      <slot name="title" />
+      <slot slot="title" name="title" />
       <Actions
         slot="actions"
         name="toolbar"

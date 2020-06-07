@@ -12,8 +12,9 @@
           :icon="isIcon && !action.fab"
           :text="!isIcon"
           :title="action.text"
+          :loading="loadingState[key]"
           v-bind="getActionProps(action)"
-          @click.prevent.stop="onActionClick(action, item)"
+          @click.prevent.stop="onActionClick(action, item, key)"
         >
           <v-icon v-if="action.icon" :left="!isIcon">
             {{ action.icon }}
@@ -70,7 +71,6 @@ export default {
         'height',
         'fab',
         'light',
-        'loading',
         'max-height',
         'max-width',
         'min-height',

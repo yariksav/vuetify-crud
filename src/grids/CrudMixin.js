@@ -10,6 +10,7 @@ export default {
     actionClick: Function,
     filter: Object,
     filterPersistent: Boolean,
+    requiredFilters: Array,
     headers: Array,
     isServer: Boolean,
     isIterator: Boolean,
@@ -21,6 +22,10 @@ export default {
     itemsPerPageOptions: {
       type: Array,
       default: () => [10, 20, 50, 100]
+    },
+    mobileBreakpoint: {
+      type: Number,
+      default: 0
     },
     onLoad: Function,
     onError: Function,
@@ -54,6 +59,7 @@ export default {
           this.$vuetify.goTo(this.$refs.grid)
         }
       })
+      this.$watch('items', this.checkIsValid)
       this.$watch('limit', this.loadData)
       this.$watch('searchValue', debounce(this.goToFirstPageAndLoadData, 500))
       this.$watch('sortBy', this.loadData)
@@ -83,7 +89,7 @@ export default {
 
       if (!this.isIterator) {
         bind.headers = this.getHeaders
-        bind['mobile-breakpoint'] = 0
+        bind['mobile-breakpoint'] = this.mobileBreakpoint
       }
       return bind
     },
@@ -141,6 +147,13 @@ export default {
       if (this.isServer && this.useRouter) {
         this.changeRouterQuery()
       }
+      if (this.requiredFilters) {
+        for (const key of this.requiredFilters) {
+          if (!this.loadParams[key]) {
+            return
+          }
+        }
+      }
       this.loading = true
       try {
         await this.onLoad(this.loadParams)
@@ -153,6 +166,11 @@ export default {
         }
       }
       this.loading = false
+    },
+    checkIsValid (val) {
+      if (val && !val.length && this.page > 1) {
+        return this.goToFirstPageAndLoadData()
+      }
     },
     async goToFirstPageAndLoadData () {
       this.page = 1

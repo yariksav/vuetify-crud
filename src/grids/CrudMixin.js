@@ -121,6 +121,8 @@ export default {
           sortDirection: (Array.isArray(this.sortDesc) ? this.sortDesc[0] : this.sortDesc) ? 'DESC' : undefined,
           ...this.filter
         }
+      } else {
+        return this.filter
       }
     }
   },

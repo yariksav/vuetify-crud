@@ -65,9 +65,8 @@
         </slot>
       </template>
     </component>
-    <div v-if="pageCount > 1" class="d-flex">
+    <div v-if="pageCount > 1">
       <v-pagination
-        class="justify-center"
         v-model="page"
         :length="pageCount"
         :total-visible="paginationTotalVisible"

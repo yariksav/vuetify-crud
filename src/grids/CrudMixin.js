@@ -65,6 +65,14 @@ export default {
       this.$watch('sortBy', this.loadData)
       this.$watch('filter', this.goToFirstPageAndLoadData, { deep: true })
     }
+    if (this.$parent) {
+      this.$parent.$on('refresh', this.onLoad.bind(this))
+    }
+  },
+  beforeDestroy () {
+    if (this.$parent) {
+      this.$parent.$off('refresh')
+    }
   },
   computed: {
     pageCount () {
@@ -141,6 +149,9 @@ export default {
       this.$router.replace({
         query
       }).catch(err => {})
+    },
+    reload () {
+      return this.loadData()
     },
     async loadData () {
       if (!this.onLoad) {

@@ -20,7 +20,7 @@
             {{ action.icon }}
           </v-icon>
           <template v-if="!isIcon">
-            {{ action.text }}
+            {{ getParam(action.text, item, true) }}
           </template>
         </v-btn>
         <MenuActions

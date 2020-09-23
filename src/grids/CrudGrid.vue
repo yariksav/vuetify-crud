@@ -49,8 +49,8 @@
         <slot :name="slot" v-bind="scope" />
       </template>
 
-      <template v-if="actions" v-slot:item.actions="{ item }">
-        <slot name="actions" :item="item">
+      <template v-if="actions && !isIterator" v-slot:[`item.actions`]="{ item }">
+        <slot :name="'actions'" :item="item">
           <div class="actions" :class="{ 'only-on-hover': true }">
             <Actions
               slot="actions"
@@ -64,6 +64,24 @@
           </div>
         </slot>
       </template>
+
+      <template v-if="actions && isIterator" v-slot:item="{ item }">
+        <div class="IteratorItem">
+          <slot name="item" :item="item" />
+          <div class="IteratorActions" :class="{ 'only-on-hover': true }">
+            <Actions
+              slot="actions"
+              icon
+              :actions="actions"
+              :on-error="onError"
+              :handler="actionClick"
+              :item="item"
+              @changed="loadData"
+            />
+          </div>
+        </div>
+      </template>
+
     </component>
     <div v-if="pageCount > 1">
       <v-pagination
@@ -116,6 +134,10 @@ export default {
   computed: {
     componentVuetify () {
       return this.isIterator ? VDataIterator : VDataTable
+    },
+    getActionSlot () {
+      console.log('item' + (this.isIterator ? '' : '.actions'))
+      return 'item' + (this.isIterator ? '' : '.actions')
     }
   }
 }
@@ -137,6 +159,14 @@ export default {
             opacity: 1;
           }
         }
+      }
+    }
+    .IteratorItem {
+      position: relative;
+      .IteratorActions {
+        position: absolute;
+        right: 4px;
+        top: 4px;
       }
     }
   }

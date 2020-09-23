@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y left bottom>
+  <v-menu offset-y left bottom v-model="menuVisible">
     <template v-slot:activator="{ on }">
       <v-btn
         :text="!!text"
@@ -16,13 +16,13 @@
         <v-list-item
           v-if="!action.top && getParam(action.visible, item, true)"
           :key="key"
-          @click.prevent.stop="onActionClick(action)"
+          @click.prevent.stop="onMenuActionClick(action)"
         >
           <v-icon v-if="action.icon" left>
             {{ action.icon }}
           </v-icon>
           <v-list-item-title>
-            {{ action.text }}
+            {{ getParam(action.text, item, true) }}
           </v-list-item-title>
         </v-list-item>
         <v-divider v-if="action.divider" :key="'divider-' + key" />
@@ -48,6 +48,17 @@ export default {
   props: {
     icon: String,
     text: String
+  },
+  data () {
+    return {
+      menuVisible: null
+    }
+  },
+  methods: {
+    onMenuActionClick (action) {
+      this.menuVisible = false
+      return this.onActionClick(action)
+    }
   }
 }
 </script>

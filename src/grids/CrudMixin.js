@@ -65,7 +65,7 @@ export default {
       this.$watch('sortBy', this.loadData)
       this.$watch('filter', this.goToFirstPageAndLoadData, { deep: true })
     }
-    if (this.$parent) {
+    if (this.$parent && this.onLoad) {
       this.$parent.$on('refresh', this.onLoad.bind(this))
     }
   },

@@ -7,7 +7,7 @@
         v-on="on"
         :title="text"
       >
-        <v-icon v-if="!text">{{ icon || 'more_vert' }}</v-icon>
+        <v-icon v-if="icon || !text">{{ icon || 'more_vert' }}</v-icon>
         {{ text }}
       </v-btn>
     </template>

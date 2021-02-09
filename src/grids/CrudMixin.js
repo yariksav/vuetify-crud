@@ -1,4 +1,4 @@
-import { debounce, pick } from 'lodash'
+import { debounce } from 'lodash'
 
 export default {
   props: {
@@ -166,6 +166,9 @@ export default {
             return
           }
         }
+      }
+      if (this.loading) {
+        return
       }
       this.loading = true
       try {

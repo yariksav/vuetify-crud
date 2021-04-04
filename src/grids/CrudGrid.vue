@@ -165,8 +165,8 @@ export default {
       position: relative;
       .IteratorActions {
         position: absolute;
-        right: 4px;
-        top: 4px;
+        right: 0px;
+        top: 0px;
       }
     }
   }
